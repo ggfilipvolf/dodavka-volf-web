@@ -377,7 +377,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
             <tr><th scope="row">14 dní a déle</th><td colspan="2">Cena dohodou, <a href="#poptavka">napište nám</a></td></tr>
           </tbody>
         </table>
-        <p class="small note">Kilometry se sčítají za celý pronájem. Každý další kilometr stojí 5 Kč.</p>
+        <p class="small note">Kilometry se sčítají za celý pronájem. Každý další kilometr stojí 10 Kč.</p>
       </div>
       <div class="price-side">
         <div>
@@ -392,8 +392,8 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         <div>
           <h3>Příplatky</h3>
           <ul class="list">
-            <li>Každý km nad limit <b>5 Kč</b></li>
-            <li>Pozdní vrácení, každá započatá hodina <b>200 Kč</b></li>
+            <li>Každý km nad limit <b>10 Kč</b></li>
+            <li>Pozdní vrácení, každá započatá hodina <b>500 Kč</b></li>
             <li>Dotankování, pokud nevrátíte plnou <b>palivo + 300 Kč</b></li>
             <li>Mimořádný úklid <b>od 1 000 Kč</b></li>
           </ul>
@@ -454,7 +454,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         <div class="acc-body">
           <ul>
             <li>V ceně je 300 km na každý den pronájmu, o víkendu 900 km. Kilometry se sčítají za celý pronájem.</li>
-            <li>Každý další kilometr stojí 5 Kč.</li>
+            <li>Každý další kilometr stojí 10 Kč.</li>
             <li>Dodávku dostanete s plnou nádrží a vracíte ji plnou (nafta). Jinak účtujeme cenu paliva + 300 Kč za dotankování.</li>
             <li>AdBlue doplňujeme my.</li>
           </ul>
@@ -479,7 +479,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
           <ul>
             <li>Převzetí i vrácení je vždy v 8:00 ráno, pondělí až sobota. V neděli dodávku nepředáváme ani nepřebíráme.</li>
             <li>Dodávku vracíte ve smluvený den v 8:00 na smluvené místo.</li>
-            <li>Tolerujeme 30 minut. Pak účtujeme 200 Kč za každou započatou hodinu, od 4 hodin celý další den.</li>
+            <li>Tolerujeme 30 minut. Pak účtujeme 500 Kč za každou započatou hodinu, od 4 hodin celý další den.</li>
             <li>Prodloužení domluvte předem telefonicky. Pokud je termín volný, rádi prodloužíme.</li>
           </ul>
         </div>
@@ -685,7 +685,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   var SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx2M-Js0EntsSpNVNZn_018IyX3Ty4M1J3KO2QY8QnokyH7UfIldkR9rOOGUwwLwXa8RA/exec';
 
   var PRICE = [ {max:1, day:1990}, {max:3, day:1790}, {max:6, day:1590}, {max:13, day:1390} ];
-  var WEEKEND = 4490, KM_DAY = 300, KM_WEEKEND = 900, KM_EXTRA = 5;
+  var WEEKEND = 4490, KM_DAY = 300, KM_WEEKEND = 900, KM_EXTRA = 10;
   var $ = function(id){ return document.getElementById(id); };
   var fmt = function(n){ return n.toLocaleString('cs-CZ').replace(/ /g,' ') + ' Kč'; };
 
@@ -747,7 +747,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     var dayWord = r.days === 1 ? 'den' : (r.days < 5 ? 'dny' : 'dní');
     var parts = [r.weekend ? 'víkendová cena' : (r.days + ' ' + dayWord + ' × ' + fmt(r.perDay))];
     parts.push(r.kmIncl + ' km v ceně');
-    if (r.extraKm) parts.push(r.extraKm + ' km navíc × 5 Kč');
+    if (r.extraKm) parts.push(r.extraKm + ' km navíc × ' + KM_EXTRA + ' Kč');
     parts.push('vratná kauce ' + fmt(dep));
     sub.textContent = parts.join(', ');
   }
