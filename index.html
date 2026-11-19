@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#F4F4F2">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRental","name":"Dodávka Volf","url":"https://dodavkavolf.cz/","telephone":"+420777272802","email":"info@dodavkavolf.cz","image":"https://dodavkavolf.cz/img/og.jpg","priceRange":"od 1 390 Kč / den","areaServed":"Brno","address":{"@type":"PostalAddress","addressLocality":"Brno","addressCountry":"CZ"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRental","name":"Dodávka Volf","url":"https://dodavkavolf.cz/","telephone":"+420777272802","email":"info@dodavkavolf.cz","image":"https://dodavkavolf.cz/img/og.jpg","priceRange":"od 1 390 Kč / den bez DPH","areaServed":"Brno","address":{"@type":"PostalAddress","addressLocality":"Brno","addressCountry":"CZ"}}</script>
 <title>Dodávka Volf – pronájem nové dodávky Iveco Daily v Brně</title>
-<meta name="description" content="Půjčte si novou dodávku Iveco Daily 16 m³ s automatem v Brně. Pronájem na den, 300 km v ceně, pojištění a dálniční známka. Konečné ceny bez DPH navíc.">
+<meta name="description" content="Půjčte si novou dodávku Iveco Daily 16 m³ s automatem v Brně. Pronájem na den, 300 km v ceně, pojištění a dálniční známka. Ceny bez DPH.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="img/ikona.png">
 <meta property="og:title" content="Dodávka Volf – nové Iveco Daily k pronájmu v Brně">
@@ -158,6 +158,13 @@ form.card{color:var(--ink);padding:var(--space-8)}
 .field input,.field select,.field textarea{font:inherit;font-size:16px;min-height:48px;padding:0 var(--space-3);border-radius:var(--radius-sm);border:1px solid var(--mineral);background:var(--surface-raised);color:var(--ink);width:100%}
 .field textarea{padding:var(--space-3);min-height:96px;resize:vertical}
 .pair{display:grid;grid-template-columns:3fr 2fr;gap:var(--space-2)}
+.datepick{position:relative;display:block}
+.cal{display:flex;align-items:center;gap:var(--space-2);min-height:48px;padding:0 var(--space-3);border-radius:var(--radius-sm);border:1px solid var(--mineral);background:var(--surface-raised);color:var(--ink);font-weight:600;font-size:16px}
+.cal svg{width:24px;height:24px;flex:0 0 24px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.datepick input[type=date]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0;margin:0;min-height:0}
+.datepick input[type=date]::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:100%;height:100%;cursor:pointer}
+.datepick:focus-within .cal{outline:2px solid var(--focus);outline-offset:2px}
+.field.is-error .cal{border-color:var(--danger)}
 .field .hint{font-size:13px;line-height:18px;color:var(--ink-muted)}
 .field.is-error input,.field.is-error select{border-color:var(--danger)}
 .field .err{display:none;font-size:13px;line-height:18px;color:var(--danger)}
@@ -263,7 +270,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         <a class="btn btn-primary" href="#poptavka">Poptat termín</a>
         <a class="btn btn-secondary" href="#cenik">Zobrazit ceník</a>
       </div>
-      <p class="from-price small">od <b>1&nbsp;390&nbsp;Kč</b> / den · ceny jsou konečné</p>
+      <p class="from-price small">od <b>1&nbsp;390&nbsp;Kč</b> / den bez DPH</p>
     </div>
     <div class="hero-van">
       <img src="img/dodavka-volf-iveco-daily.webp" alt="Šedá dodávka Iveco Daily 35S18 Hi-Matic, model 2026, pohled zepředu" width="1749" height="1109" fetchpriority="high">
@@ -341,7 +348,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     <div class="section-head">
       <p class="overline">Ceník</p>
       <h2>Čím déle, tím levněji</h2>
-      <p class="lead">Půjčujeme na celé dny (24 hodin). Každý den má v ceně 300 km. Ceny jsou konečné – nejsme plátci DPH.</p>
+      <p class="lead">Půjčujeme na celé dny (24 hodin). Každý den má v ceně 300 km. Všechny ceny jsou uvedeny bez DPH.</p>
     </div>
     <div class="price-grid">
       <div class="price"><span class="price-label">1 den</span><span class="price-value">1 990 Kč</span><span class="price-unit">300 km v ceně</span></div>
@@ -504,7 +511,10 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
           <div class="field" id="f-from">
             <label for="fromDate">Převzetí</label>
             <div class="pair">
-              <input id="fromDate" name="prevzeti_datum" type="date" required aria-describedby="fromErr">
+              <span class="datepick">
+                <span class="cal" id="fromBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span class="cal-label" id="fromLabel"></span></span>
+                <input id="fromDate" name="prevzeti_datum" type="date" required aria-label="Datum převzetí">
+              </span>
               <select id="fromTime" name="prevzeti_cas" aria-label="Čas převzetí"></select>
             </div>
             <span class="err" id="fromErr">Vyberte datum převzetí.</span>
@@ -512,7 +522,10 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
           <div class="field" id="f-to">
             <label for="toDate">Vrácení</label>
             <div class="pair">
-              <input id="toDate" name="vraceni_datum" type="date" required aria-describedby="toErr">
+              <span class="datepick">
+                <span class="cal" id="toBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span class="cal-label" id="toLabel"></span></span>
+                <input id="toDate" name="vraceni_datum" type="date" required aria-label="Datum vrácení">
+              </span>
               <select id="toTime" name="vraceni_cas" aria-label="Čas vrácení"></select>
             </div>
             <span class="err" id="toErr">Vrácení musí být po převzetí.</span>
@@ -553,10 +566,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
             <input id="mail" name="email" type="email" autocomplete="email" required>
             <span class="err">Zadejte platný e-mail.</span>
           </div>
-          <div class="field full">
-            <label for="msg">Co budete vozit? (nepovinné)</label>
-            <textarea id="msg" name="zprava" placeholder="Např. stěhování 2+1, přeprava nábytku, materiál na stavbu…"></textarea>
-          </div>
+          <input type="text" name="web" id="web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
           <div class="full field" id="f-consent">
             <label class="consent"><input id="consent" type="checkbox" required> <span>Souhlasím se zpracováním osobních údajů pro vyřízení poptávky podle <a href="#gdpr">zásad ochrany osobních údajů</a>.</span></label>
             <span class="err">Bez souhlasu poptávku nemůžeme zpracovat.</span>
@@ -585,7 +595,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
           <h3>Kdy</h3>
           <p class="small" style="margin:4px 0 0">Předání a vrácení denně 7:00–20:00, jindy po domluvě.</p>
         </div>
-        <p class="small" style="margin:0">Provozovatel: Filip Volf · IČO 09885625</p>
+        <p class="small" style="margin:0">Provozovatel: Volf Capital Invest Group s.r.o. · IČO 24057185</p>
       </aside>
     </div>
   </div>
@@ -606,7 +616,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
       </div>
       <div>
         <h3>Provozovatel</h3>
-        <p class="small" style="margin:0">Filip Volf<br>IČO 09885625, neplátce DPH<br>Svinošice 109, 679 22<br>Podnikatel zapsaný v živnostenském rejstříku</p>
+        <p class="small" style="margin:0">Volf Capital Invest Group s.r.o.<br>IČO 24057185<br>Lipůvka 50, 679 22 Lipůvka<br>Zapsaná v obchodním rejstříku u Krajského soudu v Brně, oddíl C, vložka 148855</p>
       </div>
     </div>
 
@@ -614,11 +624,12 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
       <summary>Zásady ochrany osobních údajů</summary>
       <div class="gdpr-body">
         <h4>Správce</h4>
-        <p>Správcem osobních údajů je Filip Volf, IČO 09885625, se sídlem Svinošice 109, 679 22 (dále „správce“). Kontakt: info@dodavkavolf.cz, tel. 777 272 802.</p>
+        <p>Správcem osobních údajů je Volf Capital Invest Group s.r.o., IČO 24057185, se sídlem Lipůvka 50, 679 22 Lipůvka, zapsaná v obchodním rejstříku u Krajského soudu v Brně, oddíl C, vložka 148855 (dále „správce“). Kontakt: info@dodavkavolf.cz, tel. 777 272 802.</p>
         <h4>Jaké údaje zpracováváme a proč</h4>
         <ul>
-          <li><b>Poptávka z webu</b> – jméno, telefon, e-mail, termín, IČO a text zprávy. Účel: odpověď na poptávku a příprava smlouvy. Právní základ: jednání o smlouvě na vaši žádost (čl. 6 odst. 1 písm. b GDPR).</li>
+          <li><b>Poptávka z webu</b> – jméno, telefon, e-mail, termín, odhad kilometrů a IČO. Účel: odpověď na poptávku a příprava smlouvy. Právní základ: jednání o smlouvě na vaši žádost (čl. 6 odst. 1 písm. b GDPR).</li>
           <li><b>Smlouva o nájmu</b> – jméno, adresa, datum narození, číslo občanského a řidičského průkazu, kontaktní údaje, u firem IČO a zástupce. Účel: uzavření a plnění smlouvy, předání a vrácení vozu, vyúčtování. Právní základ: plnění smlouvy.</li>
+          <li><b>Evidence poptávek</b> – poptávky z webu ukládáme do zabezpečené tabulky Google (Google Workspace), přístup má jen správce.</li>
           <li><b>Účetnictví a daně</b> – údaje na dokladech. Právní základ: plnění zákonné povinnosti.</li>
           <li><b>Ochrana majetku a vymáhání nároků</b> – údaje ze smlouvy a o průběhu pronájmu (např. škody, pokuty, kilometry). Právní základ: oprávněný zájem správce.</li>
           <li>Kopie dokladů pořizujeme jen s vaším souhlasem, který můžete kdykoli odvolat.</li>
@@ -630,7 +641,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
           <li>Účetní doklady: 10 let podle zákona.</li>
         </ul>
         <h4>Komu údaje předáváme</h4>
-        <p>Údaje předáváme jen v nezbytném rozsahu: poskytovateli webhostingu a e-mailu, účetní, pojišťovně při pojistné události, orgánům veřejné moci, pokud to vyžaduje zákon (např. Policii ČR nebo úřadu při dopravním přestupku). Údaje nepředáváme mimo Evropskou unii a nepoužíváme je k automatizovanému rozhodování ani profilování.</p>
+        <p>Údaje předáváme jen v nezbytném rozsahu: poskytovateli webhostingu (GitHub), e-mailu a tabulek (Google), účetní, pojišťovně při pojistné události, orgánům veřejné moci, pokud to vyžaduje zákon (např. Policii ČR nebo úřadu při dopravním přestupku). Poskytovatelé GitHub a Google mohou údaje zpracovávat i mimo EU na základě standardních smluvních doložek EU. Údaje nepoužíváme k automatizovanému rozhodování ani profilování.</p>
         <h4>Vaše práva</h4>
         <p>Máte právo na přístup ke svým údajům, jejich opravu, výmaz, omezení zpracování, přenositelnost, právo vznést námitku proti zpracování na základě oprávněného zájmu a právo odvolat souhlas. Žádost pošlete na info@dodavkavolf.cz, odpovíme do 30 dnů. Máte také právo podat stížnost u Úřadu pro ochranu osobních údajů (www.uoou.gov.cz).</p>
         <h4>Cookies</h4>
@@ -639,16 +650,15 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
       </div>
     </details>
 
-    <p class="small" style="margin-top:24px">© 2026 Dodávka Volf · dodavkavolf.cz</p>
+    <p class="small" style="margin-top:24px">© 2026 Dodávka Volf · Volf Capital Invest Group s.r.o. · dodavkavolf.cz</p>
   </div>
 </footer>
 
 <script>
 (function(){
-  /* Odesílání poptávky: po spuštění na dodavkavolf.cz sem doplňte adresu formulářové služby
-     (např. https://api.web3forms.com/submit) a přístupový klíč. Prázdné = náhled bez odesílání. */
-  var FORM_ENDPOINT = '';
-  var FORM_ACCESS_KEY = '';
+  /* Poptávky se zapisují do tabulky „Dodávka Volf – poptávky a rezervace“ na Disku (06_DODAVKA)
+     přes Google Apps Script „Dodávka Volf – poptávky z webu“. */
+  var SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx2M-Js0EntsSpNVNZn_018IyX3Ty4M1J3KO2QY8QnokyH7UfIldkR9rOOGUwwLwXa8RA/exec';
 
   var PRICE = [ {max:1, day:1990}, {max:3, day:1790}, {max:6, day:1590}, {max:13, day:1390} ];
   var WEEKEND = 4490, KM_DAY = 300, KM_WEEKEND = 900, KM_EXTRA = 5;
@@ -669,6 +679,18 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   var today = new Date(); today.setHours(0,0,0,0);
   var iso = function(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); };
   $('fromDate').min = iso(today); $('toDate').min = iso(today);
+  var DNY = ['ne','po','út','st','čt','pá','so'];
+  function label(pid){
+    var v = $(pid + 'Date').value, el = $(pid + 'Label');
+    if (!v) { el.textContent = ''; return; }
+    var p = v.split('-'), d = new Date(+p[0], +p[1]-1, +p[2]);
+    el.textContent = DNY[d.getDay()] + ' ' + d.getDate() + '. ' + (d.getMonth()+1) + '.';
+  }
+  ['from','to'].forEach(function(pid){
+    var inp = $(pid + 'Date');
+    inp.addEventListener('click', function(){ try { if (inp.showPicker) inp.showPicker(); } catch (err) {} });
+    inp.addEventListener('change', function(){ label('from'); label('to'); });
+  });
 
   function dt(dateId, timeId){
     var d = $(dateId).value; if (!d) return null;
@@ -703,7 +725,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     if (r.error) { main.textContent = 'Vrácení musí být po převzetí'; sub.textContent = ''; return; }
     if (r.custom) { main.textContent = 'Cena na míru'; sub.textContent = r.days + ' dní – na delší pronájem vám pošleme individuální nabídku · kauce ' + fmt(dep); return; }
     var total = r.price + r.extraKm * KM_EXTRA;
-    main.textContent = fmt(total);
+    main.textContent = fmt(total) + ' bez DPH';
     var dayWord = r.days === 1 ? 'den' : (r.days < 5 ? 'dny' : 'dní');
     var parts = [r.weekend ? 'víkendová cena' : (r.days + ' ' + dayWord + ' × ' + fmt(r.perDay))];
     parts.push(r.kmIncl + ' km v ceně');
@@ -715,7 +737,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   document.querySelectorAll('input[name="cesta"]').forEach(function(el){ el.addEventListener('change', render); });
   $('fromDate').addEventListener('change', function(){
     if (!$('toDate').value || $('toDate').value < $('fromDate').value) { $('toDate').value = $('fromDate').value; $('toTime').value = '20:00'; }
-    $('toDate').min = $('fromDate').value; render();
+    $('toDate').min = $('fromDate').value; label('from'); label('to'); render();
   });
 
   function setErr(id, bad){ $(id).classList.toggle('is-error', !!bad); return !bad; }
@@ -732,33 +754,32 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     ok = setErr('f-consent', !$('consent').checked) && ok;
     if (!ok) { var first = document.querySelector('.is-error input, .is-error select'); if (first) first.focus(); return; }
 
-    var data = {
-      subject: 'Poptávka dodávky – ' + $('name').value.trim(),
-      prevzeti: $('fromDate').value + ' ' + $('fromTime').value,
-      vraceni: $('toDate').value + ' ' + $('toTime').value,
+    var data = new URLSearchParams({
+      jmeno: $('name').value.trim(),
+      telefon: $('tel').value.trim(),
+      email: $('mail').value.trim(),
+      ico: $('ico').value.trim(),
+      prevzeti_datum: $('fromDate').value, prevzeti_cas: $('fromTime').value,
+      vraceni_datum: $('toDate').value, vraceni_cas: $('toTime').value,
+      dni: r && !r.error ? r.days : '',
       cesta: document.querySelector('input[name="cesta"]:checked').value,
-      km: $('km').value, ico: $('ico').value, jmeno: $('name').value.trim(),
-      telefon: $('tel').value.trim(), email: $('mail').value.trim(), zprava: $('msg').value.trim(),
-      odhad_ceny: $('estMain').textContent + ' (' + $('estSub').textContent + ')'
-    };
+      km: $('km').value,
+      cena: r && r.price ? r.price + (r.extraKm || 0) * KM_EXTRA : '',
+      kauce: abroad() ? 20000 : 15000,
+      web: $('web').value
+    });
     var btn = e.submitter || document.querySelector('#form button[type=submit]');
-
-    function done(sent){
-      $('formFields').style.display = 'none';
-      $('success').classList.add('show');
-      if (!sent) {
-        $('success').querySelector('h3').textContent = 'Náhled webu – poptávka se zatím neodesílá';
-        $('successText').textContent = 'Odesílání se zapne po spuštění na dodavkavolf.cz. Termín si zatím domluvte telefonicky.';
-      }
-      $('success').focus && $('success').setAttribute('tabindex','-1'); $('success').focus();
-    }
-    if (!FORM_ENDPOINT) { done(false); return; }
     btn.disabled = true; btn.textContent = 'Odesílám…';
-    var payload = Object.assign({access_key: FORM_ACCESS_KEY, from_name: 'dodavkavolf.cz'}, data);
-    fetch(FORM_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body: JSON.stringify(payload)})
-      .then(function(r){ if (!r.ok) throw new Error(r.status); done(true); })
-      .catch(function(){ btn.disabled = false; btn.textContent = 'Odeslat poptávku';
-        $('estSub').textContent = 'Poptávku se nepodařilo odeslat. Zkuste to znovu nebo volejte 777 272 802.'; });
+    fetch(SHEET_ENDPOINT, {method: 'POST', mode: 'no-cors', body: data})
+      .then(function(){
+        $('formFields').style.display = 'none';
+        $('success').classList.add('show');
+        $('success').setAttribute('tabindex', '-1'); $('success').focus();
+      })
+      .catch(function(){
+        btn.disabled = false; btn.textContent = 'Odeslat poptávku';
+        $('estSub').textContent = 'Poptávku se nepodařilo odeslat. Zkuste to znovu nebo volejte 777 272 802.';
+      });
   });
   render();
 })();
