@@ -159,6 +159,7 @@ form.card{color:var(--ink);padding:var(--space-8)}
 .field textarea{padding:var(--space-3);min-height:96px;resize:vertical}
 .pair{display:grid;grid-template-columns:3fr 2fr;gap:var(--space-2)}
 .datepick{position:relative;display:block}
+.time-fixed{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:var(--radius-sm);background:var(--surface-sunken);font-weight:700;font-size:16px;color:var(--ink)}
 .cal{display:flex;align-items:center;gap:var(--space-2);min-height:48px;padding:0 var(--space-3);border-radius:var(--radius-sm);border:1px solid var(--mineral);background:var(--surface-raised);color:var(--ink);font-weight:600;font-size:16px}
 .cal svg{width:24px;height:24px;flex:0 0 24px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
 .datepick input[type=date]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0;margin:0;min-height:0}
@@ -348,14 +349,14 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     <div class="section-head">
       <p class="overline">Ceník</p>
       <h2>Čím déle, tím levněji</h2>
-      <p class="lead">Půjčujeme na celé dny (24 hodin). Každý den má v ceně 300 km. Všechny ceny jsou uvedeny bez DPH.</p>
+      <p class="lead">Půjčujeme na celé dny – převzetí i vrácení vždy v 8:00 ráno, pondělí až sobota. Každý den má v ceně 300 km. Všechny ceny jsou uvedeny bez DPH.</p>
     </div>
     <div class="price-grid">
       <div class="price"><span class="price-label">1 den</span><span class="price-value">1 990 Kč</span><span class="price-unit">300 km v ceně</span></div>
       <div class="price"><span class="price-label">2–3 dny</span><span class="price-value">1 790 Kč</span><span class="price-unit">za den · 300 km / den</span></div>
       <div class="price price-feat"><span class="price-label">4–6 dní</span><span class="price-value">1 590 Kč</span><span class="price-unit">za den · 300 km / den</span></div>
       <div class="price"><span class="price-label">7–13 dní</span><span class="price-value">1 390 Kč</span><span class="price-unit">za den · 300 km / den</span></div>
-      <div class="price"><span class="price-label">Víkend</span><span class="price-value">4 490 Kč</span><span class="price-unit">pá 16:00 – po 9:00 · 900 km</span></div>
+      <div class="price"><span class="price-label">Víkend</span><span class="price-value">4 490 Kč</span><span class="price-unit">pá 8:00 – po 8:00 · 900 km</span></div>
     </div>
     <div class="price-cols">
       <div class="card">
@@ -397,7 +398,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     </div>
     <div class="steps">
       <div class="step"><h3>Pošlete poptávku</h3><p>Vyplňte termín ve formuláři nebo zavolejte. Hned uvidíte orientační cenu.</p></div>
-      <div class="step"><h3>Potvrdíme termín</h3><p>Ozveme se zpravidla do hodiny, potvrdíme cenu, čas a místo předání v Brně.</p></div>
+      <div class="step"><h3>Potvrdíme termín</h3><p>Ozveme se zpravidla do hodiny, potvrdíme cenu a místo předání v Brně.</p></div>
       <div class="step"><h3>Převezmete dodávku</h3><p>Ukážeme vám vůz, podepíšeme smlouvu, uhradíte nájem a vratnou kauci.</p></div>
       <div class="step"><h3>Vrátíte ji</h3><p>S plnou nádrží ve smluvený čas. Společně zkontrolujeme vůz a vrátíme kauci.</p></div>
     </div>
@@ -458,7 +459,8 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         <summary>Vrácení a zpoždění</summary>
         <div class="acc-body">
           <ul>
-            <li>Dodávku vracíte ve smluvený čas na smluvené místo.</li>
+            <li>Převzetí i vrácení je vždy v 8:00 ráno, pondělí až sobota. V neděli dodávku nepředáváme ani nepřebíráme.</li>
+            <li>Dodávku vracíte ve smluvený den v 8:00 na smluvené místo.</li>
             <li>Tolerujeme 30 minut. Pak účtujeme 200 Kč za každou započatou hodinu, od 4 hodin celý další den.</li>
             <li>Prodloužení domluvte předem telefonicky – pokud je termín volný, rádi prodloužíme.</li>
           </ul>
@@ -515,9 +517,10 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
                 <span class="cal" id="fromBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span class="cal-label" id="fromLabel"></span></span>
                 <input id="fromDate" name="prevzeti_datum" type="date" required aria-label="Datum převzetí">
               </span>
-              <select id="fromTime" name="prevzeti_cas" aria-label="Čas převzetí"></select>
+              <span class="time-fixed">v 8:00</span>
             </div>
             <span class="err" id="fromErr">Vyberte datum převzetí.</span>
+            <span class="hint">Předáváme po–so vždy v 8:00 ráno.</span>
           </div>
           <div class="field" id="f-to">
             <label for="toDate">Vrácení</label>
@@ -526,7 +529,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
                 <span class="cal" id="toBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span class="cal-label" id="toLabel"></span></span>
                 <input id="toDate" name="vraceni_datum" type="date" required aria-label="Datum vrácení">
               </span>
-              <select id="toTime" name="vraceni_cas" aria-label="Čas vrácení"></select>
+              <span class="time-fixed">v 8:00</span>
             </div>
             <span class="err" id="toErr">Vrácení musí být po převzetí.</span>
           </div>
@@ -593,7 +596,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
         </div>
         <div>
           <h3>Kdy</h3>
-          <p class="small" style="margin:4px 0 0">Předání a vrácení denně 7:00–20:00, jindy po domluvě.</p>
+          <p class="small" style="margin:4px 0 0">Převzetí i vrácení vždy v 8:00 ráno, pondělí až sobota. V neděli nepředáváme – na neděli si dodávku vezměte přes víkend (so 8:00 – po 8:00).</p>
         </div>
         <p class="small" style="margin:0">Provozovatel: Volf Capital Invest Group s.r.o. · IČO 24057185</p>
       </aside>
@@ -665,17 +668,6 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   var $ = function(id){ return document.getElementById(id); };
   var fmt = function(n){ return n.toLocaleString('cs-CZ').replace(/ /g,' ') + ' Kč'; };
 
-  // time selects 7:00–20:00 every 30 min
-  ['fromTime','toTime'].forEach(function(id, i){
-    var s = $(id);
-    for (var h = 7; h <= 20; h++) {
-      ['00','30'].forEach(function(m){
-        if (h === 20 && m === '30') return;
-        var o = document.createElement('option'); o.value = o.textContent = h + ':' + m; s.appendChild(o);
-      });
-    }
-    s.value = i === 0 ? '8:00' : '8:00';
-  });
   var today = new Date(); today.setHours(0,0,0,0);
   var iso = function(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); };
   $('fromDate').min = iso(today); $('toDate').min = iso(today);
@@ -692,26 +684,27 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     inp.addEventListener('change', function(){ label('from'); label('to'); });
   });
 
-  function dt(dateId, timeId){
+  // předání i vrácení vždy v 8:00, po–so
+  function dt(dateId){
     var d = $(dateId).value; if (!d) return null;
-    var t = $(timeId).value.split(':');
     var p = d.split('-');
-    return new Date(+p[0], +p[1]-1, +p[2], +t[0], +t[1]);
+    return new Date(+p[0], +p[1]-1, +p[2], 8, 0);
   }
   function abroad(){ return document.querySelector('input[name="cesta"]:checked').value !== 'ČR'; }
 
   function calc(){
-    var a = dt('fromDate','fromTime'), b = dt('toDate','toTime');
+    var a = dt('fromDate'), b = dt('toDate');
+    if (a && a.getDay() === 0) return {error:'sunFrom'};
+    if (b && b.getDay() === 0) return {error:'sunTo'};
     if (!a || !b) return null;
-    var hours = (b - a) / 36e5;
-    if (hours <= 0) return {error:true};
-    var days = Math.max(1, Math.ceil((hours - 0.5) / 24));
+    var days = Math.round((b - a) / 864e5);
+    if (days < 1) return {error:'order'};
     var res = {days: days, kmIncl: days * KM_DAY, price: null, perDay: null, weekend: false, custom: false};
     var tier = PRICE.filter(function(p){ return days <= p.max; })[0];
     if (!tier) { res.custom = true; return res; }
     res.perDay = tier.day; res.price = tier.day * days;
-    // weekend: Fri from 14:00 to Mon until 9:00
-    var isWknd = a.getDay() === 5 && a.getHours() >= 14 && b.getDay() === 1 && (b.getHours() < 9 || (b.getHours() === 9 && b.getMinutes() === 0)) && hours <= 72;
+    // víkend: pátek 8:00 – pondělí 8:00
+    var isWknd = a.getDay() === 5 && b.getDay() === 1 && days === 3;
     if (isWknd && WEEKEND < res.price) { res.price = WEEKEND; res.weekend = true; res.kmIncl = KM_WEEKEND; }
     var km = parseInt($('km').value, 10);
     res.extraKm = (!isNaN(km) && km > res.kmIncl) ? (km - res.kmIncl) : 0;
@@ -722,7 +715,11 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     var r = calc(), dep = abroad() ? 20000 : 15000;
     var main = $('estMain'), sub = $('estSub');
     if (!r) { main.textContent = 'Vyberte termín'; sub.textContent = '300 km na den v ceně · kauce ' + fmt(dep) + ' (vratná)'; return; }
-    if (r.error) { main.textContent = 'Vrácení musí být po převzetí'; sub.textContent = ''; return; }
+    if (r.error) {
+      main.textContent = r.error === 'order' ? 'Vrácení nejdřív další den' : 'V neděli nepředáváme';
+      sub.textContent = r.error === 'order' ? 'Převzetí i vrácení je vždy v 8:00 ráno.' : 'Vyberte sobotu nebo pondělí. Na neděli si dodávku vezměte přes víkend (so 8:00 – po 8:00).';
+      return;
+    }
     if (r.custom) { main.textContent = 'Cena na míru'; sub.textContent = r.days + ' dní – na delší pronájem vám pošleme individuální nabídku · kauce ' + fmt(dep); return; }
     var total = r.price + r.extraKm * KM_EXTRA;
     main.textContent = fmt(total) + ' bez DPH';
@@ -733,11 +730,15 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     parts.push('kauce ' + fmt(dep) + ' (vratná)');
     sub.textContent = parts.join(' · ');
   }
-  ['fromDate','fromTime','toDate','toTime','km'].forEach(function(id){ $(id).addEventListener('input', render); $(id).addEventListener('change', render); });
+  ['fromDate','toDate','km'].forEach(function(id){ $(id).addEventListener('input', render); $(id).addEventListener('change', render); });
   document.querySelectorAll('input[name="cesta"]').forEach(function(el){ el.addEventListener('change', render); });
   $('fromDate').addEventListener('change', function(){
-    if (!$('toDate').value || $('toDate').value < $('fromDate').value) { $('toDate').value = $('fromDate').value; $('toTime').value = '20:00'; }
-    $('toDate').min = $('fromDate').value; label('from'); label('to'); render();
+    var f = dt('fromDate');
+    if (f && (!$('toDate').value || $('toDate').value <= $('fromDate').value)) {
+      var n = new Date(f); n.setDate(n.getDate() + 1); if (n.getDay() === 0) n.setDate(n.getDate() + 1);
+      $('toDate').value = iso(n);
+    }
+    if (f) { var m = new Date(f); m.setDate(m.getDate() + 1); $('toDate').min = iso(m); } label('from'); label('to'); render();
   });
 
   function setErr(id, bad){ $(id).classList.toggle('is-error', !!bad); return !bad; }
@@ -746,8 +747,12 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
     e.preventDefault();
     var r = calc();
     var ok = true;
-    ok = setErr('f-from', !$('fromDate').value) && ok;
-    ok = setErr('f-to', !$('toDate').value || (r && r.error)) && ok;
+    var badFrom = !$('fromDate').value || (r && r.error === 'sunFrom');
+    var badTo = !$('toDate').value || (r && (r.error === 'sunTo' || r.error === 'order'));
+    $('fromErr').textContent = r && r.error === 'sunFrom' ? 'V neděli nepředáváme, vyberte jiný den.' : 'Vyberte datum převzetí.';
+    $('toErr').textContent = r && r.error === 'sunTo' ? 'V neděli nepřebíráme, vyberte sobotu nebo pondělí.' : (r && r.error === 'order' ? 'Vrácení nejdřív další den v 8:00.' : 'Vyberte datum vrácení.');
+    ok = setErr('f-from', badFrom) && ok;
+    ok = setErr('f-to', badTo) && ok;
     ok = setErr('f-name', $('name').value.trim().length < 3) && ok;
     ok = setErr('f-tel', $('tel').value.replace(/\D/g,'').length < 9) && ok;
     ok = setErr('f-mail', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('mail').value.trim())) && ok;
@@ -759,8 +764,8 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
       telefon: $('tel').value.trim(),
       email: $('mail').value.trim(),
       ico: $('ico').value.trim(),
-      prevzeti_datum: $('fromDate').value, prevzeti_cas: $('fromTime').value,
-      vraceni_datum: $('toDate').value, vraceni_cas: $('toTime').value,
+      prevzeti_datum: $('fromDate').value, prevzeti_cas: '8:00',
+      vraceni_datum: $('toDate').value, vraceni_cas: '8:00',
       dni: r && !r.error ? r.days : '',
       cesta: document.querySelector('input[name="cesta"]:checked').value,
       km: $('km').value,
